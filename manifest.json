@@ -1,0 +1,21 @@
+{
+    "name": "MuteHelperFocusmate",
+    "version": "0.0.1",
+    "manifest_version": 3,
+    "description": "Mute Tabs when unmuted Focusmate",
+    "background": {
+        "service_worker": "background.js"
+      }
+    ,
+    "content_scripts": [
+      {
+        "matches": ["*://focusmate.daily.co/*"],
+        "js": ["jquery-3.6.0.slim.min.js","listen.js"],
+        "all_frames": true
+      }
+    ],
+    "cross_origin_opener_policy": {
+      "value": "same-origin"
+    },
+    "permissions": ["storage","tabs"]
+  }  
