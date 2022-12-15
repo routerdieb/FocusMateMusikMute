@@ -1,5 +1,13 @@
-console.log('background worker started')
-chrome.tabs.onRemoved.addListener(close_check)
+console.log('background worker started');
+chrome.tabs.onRemoved.addListener(close_check);
+
+// Background script
+var tabToUrl = {};
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    // Note: this event is fired twice:
+    // Once with `changeInfo.status` = "loading" and another time with "complete"
+    tabToUrl[tabId] = tab.url;
+});
 
 
 try{
@@ -53,11 +61,16 @@ function turn_On_Sound() {
     }
 })}
 
-function close_check(tabid, removed) {
-	console.log(tabid)
+async function close_check(tabId, removed) {
+	console.log(tabId)
 	console.log('above tab was closed')
-	
-	chrome.tabs.query({url: []}, function (tabs) {
+	url = tabToUrl[tabId]
+	if (url.includes("focusmate.com")){
 		
+		turn_On_Sound();
 	}
+}
+
+function only_focusmate(tabId){
+	
 }
