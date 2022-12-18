@@ -6,6 +6,15 @@ var tabToUrl = {};
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     // Note: this event is fired twice:
     // Once with `changeInfo.status` = "loading" and another time with "complete"
+	//if tabId in tabToUrl && tabToUrl[tabId].includes('focusmate.com'){
+		//console.log('something happenend in a focusmate tab')
+	//}
+	if (tabId in tabToUrl && tabToUrl[tabId].includes('focusmate.com')){
+		if (!tab.url.includes('focusmate.com')){
+			//check_only_focusmate(tabId)
+			console.log('hohey')
+		}
+	}
     tabToUrl[tabId] = tab.url;
 });
 
@@ -69,8 +78,6 @@ function turn_On_Sound() {
 
 function close_check_tab(tabId, removed) {
 	url = tabToUrl[tabId]
-	console.log(url)
-	console.log('above tab was closed')
 	if (url.includes("focusmate.com") && check_only_focusmate(tabId)){
 		turn_On_Sound();
 	}
@@ -78,18 +85,15 @@ function close_check_tab(tabId, removed) {
 }
 
 function check_only_focusmate(searched_Id){
-	console.log('checking if only focusmate')
 	for (var tab_Id in tabToUrl) {
 		// check if the property/key is defined in the object itself, not in parent
 		if (tabToUrl.hasOwnProperty(tab_Id)) {           
 			if (tab_Id == searched_Id){
 				continue
 			}else if (tabToUrl[tab_Id].includes('focusmate.com')){
-				console.log('not the only one')
 				return false
 			}
 		}
 	}
-	console.log('the only one')
 	return true
 }
