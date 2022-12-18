@@ -1,5 +1,5 @@
 console.log('background worker started');
-chrome.tabs.onRemoved.addListener(close_check);
+chrome.tabs.onRemoved.addListener(close_check_tab);
 
 // Background script
 var tabToUrl = {};
@@ -43,10 +43,10 @@ function turn_Off_Sound() {
 			//console.log('turn_off',tabs[i].url)
 			if (!tabs[i].url.includes("focusmate.com")){
 				chrome.tabs.update(tabs[i].id, {"muted": true});
-			}else{
+			}//else{
 				//if musik playing disable sound of partner
-				chrome.tabs.update(tabs[i].id, {"muted": false});
-			}
+			//	chrome.tabs.update(tabs[i].id, {"muted": false});
+			//}
 		}
     }
 })}
@@ -67,16 +67,29 @@ function turn_On_Sound() {
     }
 })}
 
-async function close_check(tabId, removed) {
-	console.log(tabId)
-	console.log('above tab was closed')
+function close_check_tab(tabId, removed) {
 	url = tabToUrl[tabId]
-	if (url.includes("focusmate.com")){
-		
+	console.log(url)
+	console.log('above tab was closed')
+	if (url.includes("focusmate.com") && check_only_focusmate(tabId)){
 		turn_On_Sound();
 	}
+	delete tabToUrl[tabId]
 }
 
-function only_focusmate(tabId){
-	
+function check_only_focusmate(searched_Id){
+	console.log('checking if only focusmate')
+	for (var tab_Id in tabToUrl) {
+		// check if the property/key is defined in the object itself, not in parent
+		if (tabToUrl.hasOwnProperty(tab_Id)) {           
+			if (tab_Id == searched_Id){
+				continue
+			}else if (tabToUrl[tab_Id].includes('focusmate.com')){
+				console.log('not the only one')
+				return false
+			}
+		}
+	}
+	console.log('the only one')
+	return true
 }
