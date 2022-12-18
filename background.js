@@ -43,6 +43,9 @@ function turn_Off_Sound() {
 			//console.log('turn_off',tabs[i].url)
 			if (!tabs[i].url.includes("focusmate.com")){
 				chrome.tabs.update(tabs[i].id, {"muted": true});
+			}else{
+				//if musik playing disable sound of partner
+				chrome.tabs.update(tabs[i].id, {"muted": false});
 			}
 		}
     }
@@ -55,7 +58,10 @@ function turn_On_Sound() {
       if (mutedInfo){
 		//console.log('turn_on',tabs[i].url)
 		if (!tabs[i].url.includes("focusmate.com")){
-				chrome.tabs.update(tabs[i].id, {"muted": false});
+			chrome.tabs.update(tabs[i].id, {"muted": false});
+		}else{
+			//if musik playing muted, than unmute sound of partner
+			chrome.tabs.update(tabs[i].id, {"muted": true});
 		}
 	  }
     }
