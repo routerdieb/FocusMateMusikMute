@@ -1,6 +1,6 @@
 {
     "name": "Focusmate/MuteHelper",
-    "version": "0.0.0.5",
+    "version": "0.0.0.6",
     "manifest_version": 3,
     "description": "Tired of finding the music tab at the end of the session ? This extension mutes the music when you unmute in Focusmate.",
     "background": {
