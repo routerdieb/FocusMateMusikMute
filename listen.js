@@ -12,11 +12,11 @@ $(document).ready(function() {
 });
 
 function detect_muteBtn() {
-    return $('.robots-btn-mic-mute').length==1
+    return $('.robots-btn-mic-mute').length == 1
 }
 
 function detect_unmuteBtn() {
-    return $('.robots-btn-mic-unmute').length==1
+    return $('.robots-btn-mic-unmute').length == 1
 }
 
 //things are named, from an focusmate perspective.
