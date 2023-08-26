@@ -7,18 +7,20 @@ chrome.tabs.onRemoved.addListener(close_check_tab);
 /*************************************************
 		    Listeners and responses
 **************************************************/
-
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     // Note: this event is fired twice:
     // Once with `changeInfo.status` = "loading" and another time with "complete"
 	if (tabId in tabToUrl && tabToUrl[tabId].includes('focusmate.com')){
 		if (!tab.url.includes('focusmate.com')){
-			//check_only_focusmate(tabId)
-			//todo: remove these
+			// check_only_focusmate(tabId)
+			// todo: remove these
 			console.log('hohey');
 		}
 	}
     tabToUrl[tabId] = tab.url;
+	if (check_only_focusmate(-1)){
+		turn_On_Sound();
+	}
 });
 
 
@@ -49,8 +51,9 @@ function returnMessage(messageToReturn)
 }
 
 function close_check_tab(tabId, removed) {
-	url = tabToUrl[tabId]
-	if (url.includes("focusmate.com/session/") && check_only_focusmate(tabId))
+	url = tabToUrl[tabId];
+	url = ''+url;
+	if (url.includes("focusmate.com/session") && check_only_focusmate(tabId))
 	{
 		turn_On_Sound();
 	}
@@ -63,7 +66,7 @@ function check_only_focusmate(searched_Id){
 		if (tabToUrl.hasOwnProperty(tab_Id)) {           
 			if (tab_Id == searched_Id){
 				continue;
-			}else if (tabToUrl[tab_Id].includes('focusmate.com')){
+			}else if (tabToUrl[tab_Id].includes('focusmate.com/session')){
 				return false;
 			}
 		}
@@ -109,3 +112,6 @@ function turn_On_Sound() {
 		}
 	})
 }
+
+
+
