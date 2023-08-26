@@ -1,8 +1,8 @@
 {
     "name": "Focusmate/MuteHelper",
-    "version": "0.8.1",
+    "version": "0.8.2",
     "manifest_version": 3,
-    "description": "Tired of searching for the tab playing the music at the end of a Focusmate Session ? This Extension mutes all music, when you are unmuted in a focusmate session and mutes you. The other way around it unmutes the musik, when you are Muted in the Session. ",
+    "description": "End the tab search for playing music after Focusmate Sessions. This Extension mutes/unmutes music based on Focusmate mute status.",
     "background": {
         "service_worker": "background.js"
       }
